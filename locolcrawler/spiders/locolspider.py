@@ -4,7 +4,6 @@ from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import Selector
 from scrapy.http.request import Request
-
 from locolcrawler.items import LocolcrawlerItem
 
 
@@ -32,7 +31,7 @@ class LocolSpider(CrawlSpider):
         for event in events:
             event_url = event.xpath('.//div[contains(@class, "event-title")]/a/@href')
             event_url = self.__normalise(event_url)
-            event_url = self.__to_absolute_url(response.url, event_url)
+            event_url = self.__to_absolute_url(event_url, response.url)
             yield Request(event_url, callback=self.parse_details)
 
     def parse_details(self, response):
@@ -61,16 +60,15 @@ class LocolSpider(CrawlSpider):
         item['url'] = self.__to_absolute_url(base_url, item['url'])
         return item
 
-    @staticmethod
-    def __normalise(value):
+    def __normalise(self, value):
         # Convert list to string
         value = value if type(value) is not list else ' '.join(value)
         # Trim leading and trailing special characters (Whitespaces, newlines, spaces, tabs, carriage returns)
         value = value.strip()
+
         return value
 
-    @staticmethod
-    def __to_absolute_url(base_url, link):
+    def __to_absolute_url(self, base_url, link):
         import urlparse
 
         link = urlparse.urljoin(base_url, link)

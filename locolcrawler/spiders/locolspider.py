@@ -34,42 +34,6 @@ class LocolSpider(CrawlSpider):
             event_url = self.__normalise(event_url)
             event_url = self.__to_absolute_url(response.url, event_url)
             yield Request(event_url, callback=self.parse_details)
-            # links 	= hxs.select('//ul[@class="pagination"]/li[re:test(@title, "\d$")]//@href').extract()
-
-            # crawledLinks 	= []
-            # for link in links:
-            # if linkPattern.match(link) and not link in crawledLinks:
-            # crawledLinks.append(link)
-            # yield Request(link, self.parse)
-
-            # titles 	= hxs.select('//div/div[@class="event-title"]/a/@href').extract()
-            # for title in titles:
-            # item = LocolcrawlerItem()
-            # item['title'] = title.strip()
-            # yield item
-            # # hxs 	= HtmlXPathSelector(response)
-            # links	= hxs.select("//a/@href").extract()
-
-            # #We stored already crawled links in this list
-            # crawledLinks 	= []
-
-            # #Pattern to check proper link
-            # linkPattern 	= re.compile("^(?:ftp|http|https):\/\/(?:[\w\.\-\+]+:{0,1}[\w\.\-\+]*@)?(?:[a-z0-9\-\.]+)(?::[0-9]+)?(?:\/|\/(?:[\w#!:\.\?\+=&amp;%@!\-\/\(\)]+)|\?(?:[\w#!:\.\?\+=&amp;%@!\-\/\(\)]+))?$")
-
-            # for link in links:
-            # 	# If it is a proper link and is not checked yet, yield it to the Spider
-            # 	if linkPattern.match(link) and not link in crawledLinks:
-            # 		crawledLinks.append(link)
-            # 		yield Request(link, self.parse)
-
-            # titles	= hxs.select('//div/div[@class="event-title"]/a/text()').extract()
-            # for title in titles:
-            # 	item 			= LocolcrawlerItem()
-            # 	title = title.strip()
-            # 	# title = title.replace('\"', '')
-            # 	# title = title.replace('"', '')
-            # 	item["title"] 	= title
-            # 	yield item
 
     def parse_details(self, response):
         sel = Selector(response)

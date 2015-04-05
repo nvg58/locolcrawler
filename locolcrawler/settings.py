@@ -13,7 +13,12 @@ BOT_NAME = 'locolcrawler'
 SPIDER_MODULES = ['locolcrawler.spiders']
 NEWSPIDER_MODULE = 'locolcrawler.spiders'
 
-ITEM_PIPELINES = ['locolcrawler.pipelines.LocolcrawlerPipeline']
+ITEM_PIPELINES = ['locolcrawler.pipelines.MongoDBPipeline']
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'locolcrawler (+http://www.yourdomain.com)'
+
+MONGODB_SERVER = "localhost"
+MONGODB_PORT = 27017
+MONGODB_DB = "locoldb"
+MONGODB_COLLECTION = "events"
